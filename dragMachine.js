@@ -11,7 +11,7 @@ export const dragMachine = (area, socketList) => {
     socketList,
     start: [0, 0],
     end: [0, 0],
-    wire: null
+    wire: null,
   };
 
   return Machine(
@@ -25,64 +25,64 @@ export const dragMachine = (area, socketList) => {
             POINTERDOWN: {
               target: "drag",
               cond: isSocket,
-              actions: ["setStart", "setEnd", "startPath"]
-            }
-          }
+              actions: ["setStart", "setEnd", "startPath"],
+            },
+          },
         },
         drag: {
           activities: ["beeping"],
           invoke: {
-            src: dragListener(area)
+            src: dragListener(area),
           },
           on: {
             MOVE: { actions: ["setEnd", "updatePath"] },
             POINTERLEAVE: "dragCancel",
             POINTERUP: [
               { target: "connect", cond: isSocket },
-              { target: "dragCancel" }
-            ]
-          }
+              { target: "dragCancel" },
+            ],
+          },
         },
         dragCancel: {
           entry: "removeWire",
-          on: { "": "idle" }
+          on: { "": "idle" },
         },
         connect: {
-          on: { "": "idle" }
-        }
-      }
+          on: { "": "idle" },
+        },
+      },
     },
-    { actions, activities }
+    { actions, activities },
   );
 };
 
 const actions = {
   startPath: assign({
-    wire: ({ div, start, end }) => createPath(div, [...start, ...end])
+    wire: ({ div, start, end }) => createPath(div, [...start, ...end]),
   }),
   removeWire: assign({
     wire: ({ wire }) => {
       wire.parentNode.removeChild(wire);
       return {
-        wire: null
+        wire: null,
       };
-    }
+    },
   }),
   updatePath: ({ wire, start, end }) => rerenderPath(wire, [...start, ...end]),
   setStart: assign({
-    start: (_, { pos }) => pos
+    start: (_, { pos }) => pos,
   }),
   setEnd: assign({
-    end: (_, { pos }) => pos
+    end: (_, { pos }) => pos,
   }),
-  logShit
+  logShit,
 };
 
 const activities = {
   beeping: () => {
     // Start the beeping activity
+    const indicator = document.getElementById("indicator");
     const interval = setInterval(() => {
-      const indicator = document.getElementById("indicator");
       if (indicator.style.backgroundColor === "red") {
         indicator.style.backgroundColor = "blue";
       } else {
@@ -92,5 +92,5 @@ const activities = {
 
     // Return a function that stops the beeping activity
     return () => clearInterval(interval);
-  }
+  },
 };

@@ -5038,8 +5038,8 @@ var actions = {
 var activities = {
   beeping: function beeping() {
     // Start the beeping activity
+    var indicator = document.getElementById("indicator");
     var interval = setInterval(function () {
-      var indicator = document.getElementById("indicator");
       if (indicator.style.backgroundColor === "red") {
         indicator.style.backgroundColor = "blue";
       } else {
