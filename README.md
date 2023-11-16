@@ -1,2 +1,1 @@
-# drag-machine
-Created with CodeSandbox
+# SVG Drag State Machine Demo

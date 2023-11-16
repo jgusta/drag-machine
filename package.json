@@ -1,0 +1,18 @@
+{
+  "name": "drag-machine-next",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "hsluv": "0.1.0",
+    "xstate": "4.8.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": []
+}
